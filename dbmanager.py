@@ -71,12 +71,14 @@ class DBManager:
         conn.close()
 
     def database_connect(self):
+        """Метод подключения к БД для осуществления запросов"""
 
         db_params = config()
         with psycopg2.connect(dbname="hh", **db_params) as connection:
             return connection
 
     def close_connection(self):
+        """Метод закрытия соединения"""
 
         connection = self.database_connect()
         connection.close()
