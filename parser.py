@@ -1,6 +1,7 @@
 import requests
 
 def get_company(company):
+    """Получает название компании по API с hh.ru"""
 
     url = "https://api.hh.ru/employers"
     params = {"text": company}
@@ -13,6 +14,7 @@ def get_company(company):
     }
 
 def get_vacancies(url):
+    """Получает список вакансий компании по url"""
 
     response = requests.get(url)
     raw_vacancies = response.json().get("items")
@@ -23,10 +25,7 @@ def get_vacancies(url):
                 {
                     "name": vacancy["name"],
                     "salary": vacancy["salary"]["from"] if vacancy["salary"] else 0,
-                    "url": vacancy["alternate_url"],
-                    "company_name": vacancy["employer"]["name"]
+                    "url": vacancy["alternate_url"]
                 }
             )
     return vacancies
-
-print(get_vacancies("https://api.hh.ru/vacancies?employer_id=9418714"))
